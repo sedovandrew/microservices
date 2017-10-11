@@ -1,6 +1,8 @@
-FROM python:3.6.0-alpine
+FROM alpine
 
-RUN pip install flask pymongo
+RUN apk add -U python3
+
+RUN pip3 install flask pymongo
 
 WORKDIR /app
 ADD . /app
