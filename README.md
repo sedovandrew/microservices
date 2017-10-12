@@ -4,7 +4,7 @@
 
 ```bash
 docker build -t advu/comment:2.2 comment/
-docker build -t advu/post:2.1 post-py/
+docker build -t advu/post:2.2 post-py/
 docker build -t advu/ui:3.1 ui/
 ```
 

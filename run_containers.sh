@@ -10,7 +10,7 @@ docker run -d \
 docker run -d \
 	--network=reddit \
 	--network-alias=web_post \
-	advu/post:2.1
+	advu/post:2.2
 
 docker run -d \
 	--network=reddit \
