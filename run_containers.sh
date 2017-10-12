@@ -17,4 +17,8 @@ docker run -d \
 	--network-alias=comment \
 	advu/comment:2.1
 
-docker run -d --network=reddit -p 9292:9292 advu/ui:2.0
+docker run -d \
+	--network=reddit \
+	-p 9292:9292 \
+	advu/ui:3.0
+
