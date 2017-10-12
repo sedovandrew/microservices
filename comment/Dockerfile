@@ -1,7 +1,7 @@
 FROM alpine
 
 RUN apk update && \
-    apk add ruby-dev ruby-bundler g++ make
+    apk add ruby-dev ruby-json ruby-bundler g++ make
 
 ENV APP_HOME /app
 
