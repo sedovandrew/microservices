@@ -3,9 +3,9 @@
 ## Build containers
 
 ```bash
-docker build -t advu/comment:2.1 comment/
-docker build -t advu/post:2.0 post-py/
-docker build -t advu/ui:3.0 ui/
+docker build -t advu/comment:2.2 comment/
+docker build -t advu/post:2.1 post-py/
+docker build -t advu/ui:3.1 ui/
 ```
 
 ## Create data volume
