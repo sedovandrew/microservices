@@ -1,6 +1,7 @@
-FROM ruby:2.2
+FROM alpine
 
-RUN apt-get update -qq && apt-get install -y build-essential
+RUN apk update && \
+    apk add ruby-dev ruby-bundler g++ make
 
 ENV APP_HOME /app
 
