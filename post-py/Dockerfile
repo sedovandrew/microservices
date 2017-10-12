@@ -1,8 +1,9 @@
 FROM alpine
 
-RUN apk add -U python3
+RUN apk add -U python3 \
+    && rm -rf /var/cache/apk/*
 
-RUN pip3 install flask pymongo
+RUN pip3 install --no-cache-dir flask pymongo
 
 WORKDIR /app
 ADD . /app
