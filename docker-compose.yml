@@ -5,33 +5,40 @@ services:
     volumes:
       - post_db:/data/db
     networks:
-      reddit:
+      reddit_back:
         aliases:
           - db_post
           - db_comment
+
   ui:
     build: ./ui
     image: ${USERNAME}/ui:3.1
     ports:
       - 9292:9292/tcp
     networks:
-      - reddit
+      reddit_front:
+
   post:
     build: ./post-py
     image: ${USERNAME}/post:2.2
     networks:
-      reddit:
+      reddit_front:
         aliases:
           - web_post
+      reddit_back:
+
   comments:
     build: ./comment
     image: ${USERNAME}/comment:2.2
     networks:
-      reddit:
+      reddit_front:
         aliases:
           - web_comment
+      reddit_back:
+
 volumes:
   post_db:
 
 networks:
-  reddit:
+  reddit_back:
+  reddit_front:
