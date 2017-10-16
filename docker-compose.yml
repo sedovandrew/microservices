@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   mongo_db:
-    image: mongo:3.2
+    image: mongo:${REDDIT_MONGO_VERSION}
     volumes:
       - post_db:/data/db
     networks:
@@ -12,15 +12,15 @@ services:
 
   ui:
     build: ./ui
-    image: ${USERNAME}/ui:3.1
+    image: ${USERNAME}/ui:${REDDIT_UI_VERSION}
     ports:
-      - 9292:9292/tcp
+      - ${REDDIT_PORT}:9292/tcp
     networks:
       reddit_front:
 
   post:
     build: ./post-py
-    image: ${USERNAME}/post:2.2
+    image: ${USERNAME}/post:${REDDIT_POST_VERSION}
     networks:
       reddit_front:
         aliases:
@@ -29,7 +29,7 @@ services:
 
   comments:
     build: ./comment
-    image: ${USERNAME}/comment:2.2
+    image: ${USERNAME}/comment:${REDDIT_COMMENT_VERSION}
     networks:
       reddit_front:
         aliases:
