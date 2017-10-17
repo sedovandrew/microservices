@@ -1,8 +1,8 @@
 # Microservices Reddit
 
-* [Run application with Docker Compose](run-application-with-docker-compose)
-* [Run application without Docker Compose (only with Docker)](run-application-without-docker-compose-(only-with-docker))
-* [Use application](use-application)
+* [Run application with Docker Compose](#run-application-with-docker-compose)
+* [Run application without Docker Compose (only with Docker)](#run-application-without-docker-compose-(only-with-docker))
+* [Use application](#use-application)
 
 This project allows you to deploy the Reddit application in docker containers
 on your machine.   
