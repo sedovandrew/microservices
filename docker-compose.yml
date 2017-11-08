@@ -11,7 +11,6 @@ services:
           - db_comment
 
   ui:
-    build: ./ui
     image: ${USERNAME}/ui:${REDDIT_UI_VERSION}
     ports:
       - ${REDDIT_PORT}:9292/tcp
@@ -19,7 +18,6 @@ services:
       reddit_front:
 
   post:
-    build: ./post-py
     image: ${USERNAME}/post:${REDDIT_POST_VERSION}
     networks:
       reddit_front:
@@ -27,13 +25,20 @@ services:
           - web_post
       reddit_back:
 
-  comments:
-    build: ./comment
+  comment:
     image: ${USERNAME}/comment:${REDDIT_COMMENT_VERSION}
     networks:
       reddit_front:
         aliases:
           - web_comment
+      reddit_back:
+
+  prometheus:
+    image: ${USERNAME}/prometheus:${REDDIT_PROMETHEUS_VERSION}
+    ports:
+      - ${REDDIT_PROMETHEUS_PORT}:9090
+    networks:
+      reddit_front:
       reddit_back:
 
 volumes:
