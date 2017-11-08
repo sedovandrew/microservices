@@ -1,7 +1,5 @@
 *.swp
-docker-compose.yml
 build_info.txt
-prometheus/
 
 ## python specific
 *.pyc
