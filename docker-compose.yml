@@ -55,6 +55,20 @@ services:
       reddit_front:
       reddit_back:
 
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    depends_on:
+      - prometheus
+    ports:
+      - ${REDDIT_GRAFANA_PORT}:3000
+    networks:
+      reddit_back:
+
   cadvisor:
     image: google/cadvisor:latest
     volumes:
@@ -69,6 +83,7 @@ services:
 
 volumes:
   post_db:
+  grafana_data:
 
 networks:
   reddit_back:

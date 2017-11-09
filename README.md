@@ -37,7 +37,11 @@ docker-compose down
 
 Enter in browser `http://<your-machine>:9292/` and enjoy.
 
-## Montoring services with Prometheus
+## Monitoring services with Grafana
+
+`http://<your-machine>:3000`
+
+## Monitoring services with Prometheus
 
 Enter in browser `http://<your-machine>:9090/`.
 
@@ -48,6 +52,10 @@ Metrics:
 * ui_health_post_availability
 * comment_health
 * comment_health_mongo_availability
+
+## Monitoring docker containers with cAdvisor
+
+`http://<your-machine>:8080`
 
 ## Build containers youself
 
