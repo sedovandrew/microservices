@@ -48,7 +48,7 @@ services:
       reddit_back:
 
   alertmanager:
-    image: advu/alertmanager:${REDDIT_ALERTMANAGER_VERSION}
+    image: ${USERNAME}/alertmanager:${REDDIT_ALERTMANAGER_VERSION}
     command:
       - '-config.file=/etc/alertmanager/config.yml'
     ports:
