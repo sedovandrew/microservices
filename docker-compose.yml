@@ -47,6 +47,15 @@ services:
     networks:
       reddit_back:
 
+  alertmanager:
+    image: advu/alertmanager:${REDDIT_ALERTMANAGER_VERSION}
+    command:
+      - '-config.file=/etc/alertmanager/config.yml'
+    ports:
+      - ${REDDIT_ALERTMANAGER_PORT}:9093
+    networks:
+      reddit_back:
+
   prometheus:
     image: ${USERNAME}/prometheus:${REDDIT_PROMETHEUS_VERSION}
     ports:
