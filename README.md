@@ -2,7 +2,9 @@
 
 * [Run application with Docker Compose](#run-application-with-docker-compose)
 * [Use application](#use-application)
+* [Monitoring services with Grafana](#monitoring-services-with-grafana)
 * [Montoring services with Prometheus](#montoring-services-with-prometheus)
+* [Monitoring docker containers with cAdvisor](#monitoring-docker-containers-with-cadvisor)
 * [Build containers youself](#build-containers-youself)
 
 This project allows you to deploy the Reddit application in docker containers
@@ -80,5 +82,19 @@ Container with Post application:
 
 ```bash
 cd post-py
+bash docker_build.sh
+```
+
+Container with Prometheus:
+
+```bash
+cd prometheus
+bash docker_build.sh
+```
+
+Container with Alertmanager:
+
+```bash
+cd alertmanager
 bash docker_build.sh
 ```
