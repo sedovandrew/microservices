@@ -34,7 +34,7 @@ services:
       reddit_back:
 
   node-exporter:
-    image: prom/node-exporter:v0.15.0
+    image: prom/node-exporter:${REDDIT_NODE_EXPORTER_VERSION}
     user: root
     volumes:
       - /proc:/host/proc:ro
@@ -69,8 +69,8 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
     environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=secret
+      - GF_SECURITY_ADMIN_USER=${REDDIT_GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${REDDIT_GRAFANA_ADMIN_PASSWORD}
     depends_on:
       - prometheus
     ports:
