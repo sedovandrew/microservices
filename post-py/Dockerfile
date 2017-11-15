@@ -3,9 +3,9 @@ FROM alpine
 RUN apk add -U python3 \
     && rm -rf /var/cache/apk/*
 
-RUN pip3 install --no-cache-dir flask pymongo
-
 WORKDIR /app
+ADD requirements.txt /app
+RUN pip3 install --no-cache-dir -r requirements.txt
 ADD . /app
 
 ENV POST_DATABASE_HOST db_post

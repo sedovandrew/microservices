@@ -34,7 +34,7 @@ services:
       reddit_back:
 
   node-exporter:
-    image: prom/node-exporter:v0.15.0
+    image: prom/node-exporter:${REDDIT_NODE_EXPORTER_VERSION}
     user: root
     volumes:
       - /proc:/host/proc:ro
@@ -47,6 +47,15 @@ services:
     networks:
       reddit_back:
 
+  alertmanager:
+    image: ${USERNAME}/alertmanager:${REDDIT_ALERTMANAGER_VERSION}
+    command:
+      - '-config.file=/etc/alertmanager/config.yml'
+    ports:
+      - ${REDDIT_ALERTMANAGER_PORT}:9093
+    networks:
+      reddit_back:
+
   prometheus:
     image: ${USERNAME}/prometheus:${REDDIT_PROMETHEUS_VERSION}
     ports:
@@ -55,8 +64,35 @@ services:
       reddit_front:
       reddit_back:
 
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${REDDIT_GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${REDDIT_GRAFANA_ADMIN_PASSWORD}
+    depends_on:
+      - prometheus
+    ports:
+      - ${REDDIT_GRAFANA_PORT}:3000
+    networks:
+      reddit_back:
+
+  cadvisor:
+    image: google/cadvisor:latest
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:rw'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+    ports:
+      - '${REDDIT_CADVISOR_PORT}:8080'
+    networks:
+      reddit_back:
+
 volumes:
   post_db:
+  grafana_data:
 
 networks:
   reddit_back:
