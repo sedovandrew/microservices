@@ -25,6 +25,10 @@ services:
         delay: 5s
         parallelism: 1
         failure_action: pause
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 150M
       placement:
         constraints:
           - node.role == worker
@@ -42,6 +46,10 @@ services:
         delay: 10s
         parallelism: 2
         failure_action: rollback
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 300M
       placement:
         constraints:
           - node.role == worker
@@ -60,6 +68,10 @@ services:
         delay: 10s
         parallelism: 2
         failure_action: rollback
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 300M
       placement:
         constraints:
           - node.role == worker
