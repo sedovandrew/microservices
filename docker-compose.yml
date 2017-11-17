@@ -21,6 +21,10 @@ services:
     deploy:
       mode: replicated
       replicas: 3
+      update_config:
+        delay: 5s
+        parallelism: 1
+        failure_action: pause
       placement:
         constraints:
           - node.role == worker
@@ -34,6 +38,10 @@ services:
     deploy:
       mode: replicated
       replicas: 3
+      update_config:
+        delay: 10s
+        parallelism: 2
+        failure_action: rollback
       placement:
         constraints:
           - node.role == worker
@@ -48,6 +56,10 @@ services:
     deploy:
       mode: replicated
       replicas: 3
+      update_config:
+        delay: 10s
+        parallelism: 2
+        failure_action: rollback
       placement:
         constraints:
           - node.role == worker
