@@ -1,6 +1,7 @@
 # Microservices Reddit
 
 * [Run application with Docker Compose](#run-application-with-docker-compose)
+* [Run application with Swarm in Google Cloud Platform](#run-application-with-swarm-in-google-cloud-platform)
 * [Use application](#use-application)
 * [Monitoring services with Grafana](#monitoring-services-with-grafana)
 * [Montoring services with Prometheus](#montoring-services-with-prometheus)
@@ -33,6 +34,25 @@ Stop application:
 
 ```bash
 docker-compose down
+```
+
+## Run application with Swarm in Google Cloud Platform
+
+[Install Docker Machine](https://docs.docker.com/machine/install-machine/)   
+The script uses the [Google Compute Engine Driver](https://docs.docker.com/machine/drivers/gce/).
+
+Copy the template:
+
+```bash
+cp create-docker-machine4swarm.sh.example create-docker-machine4swarm.sh
+```
+
+Configure the script `create-machine4swarm.sh`. You have to set project name.
+
+Run the script to create the cluster using Docker Swarm:
+
+```bash
+bash create-docker-machine4swarm.sh
 ```
 
 ## Use application

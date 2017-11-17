@@ -1,0 +1,31 @@
+#!/bin/bash
+
+MASTER=master-1
+WORKERS="worker-1 worker-2 worker-3"
+machines="$MASTER $WORKERS"
+ENV=DEV
+
+for machine in $machines; do
+  docker-machine create --driver google \
+    --google-project  <ENTER-YOUR-PROJECT-NAME>  \ # FIX: Enter your project name and remove this comment!
+    --google-zone europe-west1-b \
+    --google-machine-type g1-small \
+    --google-machine-image $(gcloud compute images list --filter ubuntu-1604-lts --uri) \
+    $machine
+done
+
+eval $(docker-machine env $MASTER)
+docker swarm init
+
+docker_swarm_join=$(docker swarm join-token worker | grep "docker swarm join")
+
+for machine in $WORKERS; do
+  eval $(docker-machine env $machine) 
+  eval $docker_swarm_join
+done
+
+eval $(docker-machine env $MASTER)
+
+docker node update --label-add reliability=high $MASTER
+
+docker stack deploy --compose-file=<(docker-compose -f docker-compose.yml config 2>/dev/null) $ENV

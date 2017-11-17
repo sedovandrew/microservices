@@ -2,6 +2,10 @@ version: '3.3'
 services:
   mongo_db:
     image: mongo:${REDDIT_MONGO_VERSION}
+    deploy:
+      placement:
+        constraints:
+          - node.labels.reliability == high
     volumes:
       - post_db:/data/db
     networks:
@@ -12,6 +16,12 @@ services:
 
   ui:
     image: ${USERNAME}/ui:${REDDIT_UI_VERSION}
+    deploy:
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
     ports:
       - ${REDDIT_PORT}:9292/tcp
     networks:
@@ -19,6 +29,12 @@ services:
 
   post:
     image: ${USERNAME}/post:${REDDIT_POST_VERSION}
+    deploy:
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
     networks:
       reddit_front:
         aliases:
@@ -27,6 +43,12 @@ services:
 
   comment:
     image: ${USERNAME}/comment:${REDDIT_COMMENT_VERSION}
+    deploy:
+      mode: replicated
+      replicas: 3
+      placement:
+        constraints:
+          - node.role == worker
     networks:
       reddit_front:
         aliases:
@@ -35,6 +57,8 @@ services:
 
   node-exporter:
     image: prom/node-exporter:${REDDIT_NODE_EXPORTER_VERSION}
+    deploy:
+      mode: global
     user: root
     volumes:
       - /proc:/host/proc:ro
