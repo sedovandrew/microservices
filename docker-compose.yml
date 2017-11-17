@@ -32,6 +32,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+        delay: 3s
     ports:
       - ${REDDIT_PORT}:9292/tcp
     networks:
@@ -53,6 +57,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure
+        max_attempts: 15
+        delay: 1s
     networks:
       reddit_front:
         aliases:
@@ -75,6 +83,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
+        delay: 1s
     networks:
       reddit_front:
         aliases:
