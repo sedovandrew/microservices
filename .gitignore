@@ -1,6 +1,8 @@
 *.swp
 build_info.txt
+create-docker-machine.sh
+create-docker-machine4swarm.sh
+deploy_DEV.sh
 
 ## python specific
 *.pyc
-create-docker-machine.sh
