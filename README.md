@@ -17,14 +17,16 @@ Read about the installation of Docker [here](https://docs.docker.com/engine/inst
 
 [Install Docker Compose](https://docs.docker.com/compose/install/#install-compose)
 
-Set environments:
+Rename `env.example` to `.env`:
 
 ```bash
-source ./env.sh
+cp env.example .env
 ```
 
-This command will start four containers with Reddit application and one with
-Prometheus for monitoring:
+Edit `.env` with your data.
+
+This command will start four containers with Reddit application and five with
+monitoring system:
 
 ```bash
 docker-compose up -d
