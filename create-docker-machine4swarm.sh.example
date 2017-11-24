@@ -28,4 +28,4 @@ eval $(docker-machine env $MASTER)
 
 docker node update --label-add reliability=high $MASTER
 
-docker stack deploy --compose-file=<(docker-compose -f docker-compose.yml config 2>/dev/null) $ENV
+./deploy_$ENV.sh
