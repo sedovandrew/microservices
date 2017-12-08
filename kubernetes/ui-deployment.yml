@@ -22,3 +22,8 @@ spec:
       containers:
         - image: advu/ui
           name: ui
+          env:
+            - name: POST_SERVICE_HOST
+              value: post
+            - name: COMMENT_SERVICE_HOST
+              value: comment
