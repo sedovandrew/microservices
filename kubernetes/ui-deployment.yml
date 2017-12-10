@@ -27,3 +27,7 @@ spec:
               value: post
             - name: COMMENT_SERVICE_HOST
               value: comment
+            - name: ENV
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
