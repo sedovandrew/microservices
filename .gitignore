@@ -6,3 +6,9 @@ create-docker-machine4swarm.sh
 
 ## python specific
 *.pyc
+
+## Terraform
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+terraform.tfvars

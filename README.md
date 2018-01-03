@@ -7,6 +7,7 @@
 * [Montoring services with Prometheus](#montoring-services-with-prometheus)
 * [Monitoring docker containers with cAdvisor](#monitoring-docker-containers-with-cadvisor)
 * [Build containers youself](#build-containers-youself)
+* [Deploy Reddit application in GKE](#deploy-reddit-application-in-gke)
 
 This project allows you to deploy the Reddit application in docker containers
 on your machine.   
@@ -120,3 +121,7 @@ Container with Alertmanager:
 cd alertmanager
 bash docker_build.sh
 ```
+
+## Deploy Reddit application in GKE
+
+[Read this](kubernetes/README.md)
