@@ -25,11 +25,3 @@ variable cluster_node_machine_type {
   description = "Node machine type in the Cluster"
   default     = "n1-standard-1"
 }
-
-variable mongo_disk_size {
-  description = "Disk size for MongoDB"
-}
-
-variable mongo_disk_type {
-  description = "Disk type for MongoDB"
-}

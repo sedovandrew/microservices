@@ -4,5 +4,3 @@ zone                      = "europe-west1-b"
 cluster_name              = "reddit"
 cluster_node_count        = 2
 cluster_node_machine_type = "n1-standard-1"
-mongo_disk_size           = 25
-mongo_disk_type           = "pd-standard"
