@@ -21,3 +21,15 @@ resource "google_container_cluster" "reddit" {
     command = "gcloud container clusters get-credentials ${var.cluster_name} --zone ${var.zone}"
   }
 }
+
+resource "google_container_node_pool" "bigpool" {
+  name               = "bigpool"
+  zone               = "${var.zone}"
+  cluster    = "${google_container_cluster.reddit.name}"
+  node_count = "${var.bigpool_node_count}"
+
+  node_config {
+    machine_type = "${var.bigpool_node_machine_type}"
+    disk_size_gb = "${var.bigpool_node_disk_size_gb}"
+  }
+}
