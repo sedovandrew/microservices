@@ -11,9 +11,11 @@ create-docker-machine4swarm.sh
 .terraform
 terraform.tfstate
 terraform.tfstate.backup
+.terraform.tfstate.lock.info
 terraform.tfvars
 
 ## Kubernetes
-ui-ingress-secret.yml
-tls.crt
-tls.key
+kubernetes/Charts/reddit/charts
+kubernetes/Charts/reddit/requirements.lock
+kubernetes/Charts/ui/tls_crt.toml
+kubernetes/Charts/ui/tls_key.toml

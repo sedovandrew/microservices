@@ -1,0 +1,17 @@
+---
+service:
+  internalPort: 9292
+  externalPort: 9292
+
+image:
+  repository: advu/ui
+  tag: latest
+
+tls:
+  key_filename: tls_key.toml
+  crt_filename: tls_crt.toml
+
+postHost:
+postPort:
+commentHost:
+commentPort:
