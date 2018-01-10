@@ -32,6 +32,24 @@ kubectl apply -f dev-namespace.yml
 kubectl apply -f ./ -n dev
 ```
 
+Create key and certificate:
+
+```bash
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=$(kubectl get ingress -n dev ui -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
+```
+
+Configure tls secret with your `tls.crt` and `tls.key`:
+
+```bash
+cat ui-ingress-secret.yml.example | sed "s/TLS_CRT/$(cat tls.crt | base64 | tr -d '\n')/" | sed "s/TLS_KEY/$(cat tls.key | base64 |tr -d '\n')/" > ui-ingress-secret.yml
+```
+
+Apply tls secret:
+
+```bash
+kubectl apply -f ./ui-ingress-secret.yml -n dev
+```
+
 ## Using the application
 
 Get application IP (if nothing prints out, wait and try again):
@@ -40,7 +58,7 @@ Get application IP (if nothing prints out, wait and try again):
 kubectl get service -n dev ui -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 ```
 
-Copy IP address and paste it in browser. Enjoy the Reddit application. :-)
+Copy IP address and paste it in browser. Ese `https` protocol. Enjoy the Reddit application. :-)
 
 ## Destroy resources
 

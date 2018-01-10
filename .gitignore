@@ -12,3 +12,8 @@ create-docker-machine4swarm.sh
 terraform.tfstate
 terraform.tfstate.backup
 terraform.tfvars
+
+## Kubernetes
+ui-ingress-secret.yml
+tls.crt
+tls.key
