@@ -19,3 +19,6 @@ kubernetes/Charts/reddit/charts
 kubernetes/Charts/reddit/requirements.lock
 kubernetes/Charts/ui/tls_crt.toml
 kubernetes/Charts/ui/tls_key.toml
+
+## Gitlab
+Gitlab_ci

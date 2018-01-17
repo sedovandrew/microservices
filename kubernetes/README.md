@@ -23,7 +23,7 @@ cd kubernetes/terraform/dev
 terraform apply
 ```
 
-## Deployment of the application
+## Configure Helm
 
 Run Tiller server for helm:
 
@@ -33,13 +33,7 @@ kubectl apply -f filler.yml
 helm init --service-account tiller
 ```
 
-Create key and certificate (replace `reddit-application.ru` with your domain
-name or IP address):
-
-```bash
-cd kubernetes
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout Charts/ui/tls_key.toml -out Charts/ui/tls_crt.toml -subj "/CN=reddit-application.ru"
-```
+## Deployment of the application
 
 Create "dev" namespace and deploy Reddit application in "dev" namespace:
 
