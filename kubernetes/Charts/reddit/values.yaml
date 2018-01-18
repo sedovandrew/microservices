@@ -1,0 +1,14 @@
+---
+comment:
+  image:
+    repository: advu/comment
+    tag: latest
+  service:
+    externalPort: 9292
+
+post:
+  image:
+    repository: advu/post
+    tag: latest
+  service:
+    externalPort: 5000

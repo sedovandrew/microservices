@@ -1,8 +1,9 @@
 # Reddit application in development environment
 
 For deployment Reddit application in GCP you have to install
-[terraform](https://www.terraform.io/intro/getting-started/install.html)
-and [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
+[terraform](https://www.terraform.io/intro/getting-started/install.html),
+[kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) and
+[helm](https://docs.helm.sh/using_helm/#installing-helm).
 
 ## Creating Kubernetes Cluster
 
@@ -22,6 +23,16 @@ cd kubernetes/terraform/dev
 terraform apply
 ```
 
+## Configure Helm
+
+Run Tiller server for helm:
+
+```bash
+cd kubernetes
+kubectl apply -f filler.yml
+helm init --service-account tiller
+```
+
 ## Deployment of the application
 
 Create "dev" namespace and deploy Reddit application in "dev" namespace:
@@ -29,25 +40,8 @@ Create "dev" namespace and deploy Reddit application in "dev" namespace:
 ```bash
 cd kubernetes
 kubectl apply -f dev-namespace.yml
-kubectl apply -f ./ -n dev
-```
-
-Create key and certificate:
-
-```bash
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=$(kubectl get ingress -n dev ui -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
-```
-
-Configure tls secret with your `tls.crt` and `tls.key`:
-
-```bash
-cat ui-ingress-secret.yml.example | sed "s/TLS_CRT/$(cat tls.crt | base64 | tr -d '\n')/" | sed "s/TLS_KEY/$(cat tls.key | base64 |tr -d '\n')/" > ui-ingress-secret.yml
-```
-
-Apply tls secret:
-
-```bash
-kubectl apply -f ./ui-ingress-secret.yml -n dev
+helm dep update Charts/reddit
+helm install --namespace dev --name reddit-dev Charts/reddit
 ```
 
 ## Using the application
@@ -55,10 +49,10 @@ kubectl apply -f ./ui-ingress-secret.yml -n dev
 Get application IP (if nothing prints out, wait and try again):
 
 ```bash
-kubectl get service -n dev ui -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+kubectl get ingress -n dev reddit-dev-ui -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 ```
 
-Copy IP address and paste it in browser. Ese `https` protocol. Enjoy the Reddit application. :-)
+Copy IP address and paste it in browser. You can use `http` and `https` protocols. Enjoy the Reddit application. :-)
 
 ## Destroy resources
 
@@ -66,6 +60,7 @@ To remove the application with infrastructure components, type the following.
 
 ```bash
 cd kubernetes
+helm delete reddit-dev
 kubectl delete -f ./dev-namespace.yml
 ```
 
