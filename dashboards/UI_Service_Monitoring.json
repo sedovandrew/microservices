@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "4.6.1"
+      "version": "4.6.3"
     },
     {
       "type": "panel",
@@ -48,7 +48,7 @@
   "hideControls": false,
   "id": null,
   "links": [],
-  "refresh": "10s",
+  "refresh": false,
   "rows": [
     {
       "collapse": false,
@@ -87,10 +87,10 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "ui_request_count",
+              "expr": "ui_request_count{kubernetes_namespace=~\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 2,
-              "refId": "A"
+              "refId": "B"
             }
           ],
           "thresholds": [],
@@ -173,7 +173,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(ui_request_count{http_status=~\"^[45].*\"}[5m])",
+              "expr": "rate(ui_request_count{http_status=~\"^[45].*\",kubernetes_namespace=~\"$namespace\"}[5m])",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A"
@@ -259,7 +259,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(ui_request_latency_seconds_bucket[5m])) by (le))",
+              "expr": "histogram_quantile(0.95, sum(rate(ui_request_latency_seconds_bucket{kubernetes_namespace=~\"$namespace\"}[5m])) by (le))",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A"
@@ -314,11 +314,32 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Env",
+        "multi": true,
+        "name": "namespace",
+        "options": [],
+        "query": "label_values(kubernetes_namespace)",
+        "refresh": 1,
+        "regex": "/.*/",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
-    "from": "now-5m",
-    "to": "now"
+    "from": "2018-01-17T23:44:57.674Z",
+    "to": "2018-01-17T23:54:57.676Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -347,5 +368,5 @@
   },
   "timezone": "",
   "title": "UI_Service_Monitoring",
-  "version": 4
+  "version": 5
 }

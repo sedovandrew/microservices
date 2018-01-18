@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "4.6.1"
+      "version": "4.6.3"
     },
     {
       "type": "panel",
@@ -48,6 +48,7 @@
   "hideControls": false,
   "id": null,
   "links": [],
+  "refresh": false,
   "rows": [
     {
       "collapse": false,
@@ -85,7 +86,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(post_count[1h])",
+              "expr": "rate(post_count{kubernetes_namespace=~\"$namespace\"}[1h])",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A"
@@ -170,7 +171,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(comment_count[1h])",
+              "expr": "rate(comment_count{kubernetes_namespace=~\"$namespace\"}[1h])",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A"
@@ -225,11 +226,32 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Env",
+        "multi": true,
+        "name": "namespace",
+        "options": [],
+        "query": "label_values(kubernetes_namespace)",
+        "refresh": 1,
+        "regex": "/.*/",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
-    "from": "now-6h",
-    "to": "now"
+    "from": "2018-01-17T20:04:56.310Z",
+    "to": "2018-01-18T00:28:52.816Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -258,5 +280,5 @@
   },
   "timezone": "",
   "title": "Business Logic Monitoring",
-  "version": 1
+  "version": 2
 }
